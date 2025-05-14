@@ -58,7 +58,7 @@ Software versions used for development:
 - Express 5.1.0
 - Node.js 24.0.1
 - MongoDB Compass 1.46.2
-- MongoDV NodeJS Driver 6.16.0
+- MongoDB NodeJS Driver 6.16.0
 > [!WARNING]  
 > Compatibility with earlier versions has not been tested.
 
