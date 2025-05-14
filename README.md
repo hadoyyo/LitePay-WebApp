@@ -1,7 +1,7 @@
 # LitePay - Web Application for tracking and sharing group expenses
 
 <div align="center">
-  <img width="80%" src="./LitePay-Project/client/public/images/logo-dark.png"/>
+  <img width="70%" src="./LitePay-Project/client/public/images/logo-dark.png"/>
 </div>
 
 ## Table of Contents
