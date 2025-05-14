@@ -70,7 +70,7 @@ To run a project locally, you must have Node.js and npm installed.
 You must also have the MongoDB Compass app downloaded or the MongoDB Atlas service configured.
 
 1. Download and extract the LitePay-Project folder.
-2. If necessary (for example, when using MongoDB Atlas), adjust the `.env` file from the `server` directory. Otherwise, go to **4** (the file is configured by default).
+2. If necessary (for example, when using MongoDB Atlas), adjust the `.env` file from the `server` directory. Otherwise, go to **Step 4** (the file is configured by default).
 3. (If modified) Sync any changes made in `server/.env` with `client/.env`
 4. Navigate to the `server` folder in your terminal.
 5. Install dependencies and launch the backend:
