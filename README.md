@@ -79,7 +79,7 @@ $ npm install
 $ npm start
 ```
 6. Open a new terminal in the `client` folder.
-7. Install dependencies and start the frontend:
+7. Install dependencies and launch the frontend:
 ```
 $ npm install
 $ npm start
