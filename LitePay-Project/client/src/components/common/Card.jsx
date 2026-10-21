@@ -8,6 +8,10 @@ const CardContainer = styled.div`
   margin-bottom: 2rem;
   transition: box-shadow 0.3s ease;
 
+  @media (max-width: 576px) {
+    padding: 1.5rem;
+  }
+
   &:hover {
     box-shadow: ${({ theme, $hover }) => ($hover ? theme.shadows.md : 'none')};
   }
@@ -32,9 +36,9 @@ const CardBody = styled.div`
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
-export default function Card({ title, children, padding, hover, actions }) {
+export default function Card({ title, children, padding, hover, actions, className }) {
   return (
-    <CardContainer $padding={padding} $hover={hover}>
+    <CardContainer className={className} $padding={padding} $hover={hover}>
       {title && (
         <CardHeader>
           <CardTitle>{title}</CardTitle>

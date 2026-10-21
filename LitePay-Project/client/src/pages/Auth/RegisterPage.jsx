@@ -17,6 +17,10 @@ const RegisterContainer = styled.div`
   min-height: 100vh;
   padding: 2rem;
   flex-direction: column;
+
+  @media (max-width: 576px) {
+    padding: 1rem;
+  }
 `;
 
 const Logo = styled.div`
