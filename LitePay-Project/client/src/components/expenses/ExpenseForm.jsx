@@ -219,7 +219,7 @@ const recalculateShares = (
   const safeTotal = Math.max(0, parseFloat(totalAmount) || 0);
 
   const updatedShares = shares.map(share => {
-    const sUserId = typeof share.user === 'object' ? share.user._id : share.user;
+    const sUserId = typeof share.user === 'object' && share.user !== null ? share.user._id : share.user;
     if (activeUserId && sUserId === activeUserId && activeUserNewAmount !== null) {
       return { ...share, user: sUserId, amount: activeUserNewAmount };
     }
@@ -331,7 +331,7 @@ export default function ExpenseForm({
 
         if (initialValues.shares && initialValues.shares.length > 0) {
           const membersFromShares = initialValues.shares.map(share => 
-            typeof share.user === 'object' ? share.user._id : share.user
+            typeof share.user === 'object' && share.user !== null ? share.user._id : share.user
           );
           setSelectedMembers(membersFromShares);
           if (initialValues.splitType) {
@@ -360,7 +360,7 @@ export default function ExpenseForm({
         ...values,
         amount: parseFloat(values.amount),
         shares: values.shares.map(share => ({
-          user: typeof share.user === 'object' ? share.user._id : share.user,
+          user: typeof share.user === 'object' && share.user !== null ? share.user._id : share.user,
           amount: parseFloat(Number(share.amount).toFixed(2))
         }))
       };
@@ -451,7 +451,10 @@ export default function ExpenseForm({
     } else {
       const currentShares = values.shares || [];
       const baseShares = newSelectedMembers.map(id => {
-        const found = currentShares.find(s => s.user === id);
+        const found = currentShares.find(s => {
+          const sId = typeof s.user === 'object' && s.user !== null ? s.user._id : s.user;
+          return sId === id;
+        });
         return {
           user: id,
           amount: found ? found.amount : 0
@@ -473,7 +476,10 @@ export default function ExpenseForm({
     category: initialValues.category || 'food',
     paidBy: initialValues.paidBy?._id || initialValues.paidBy || (group?.members[0]?._id || ''),
     splitType: initialValues.splitType || 'equal',
-    shares: initialValues.shares || [],
+    shares: initialValues.shares?.map(s => ({
+      amount: parseFloat(s.amount) || 0,
+      user: typeof s.user === 'object' && s.user !== null ? s.user._id : s.user
+    })) || [],
     group: groupId
   });
 
@@ -654,10 +660,13 @@ export default function ExpenseForm({
                           </thead>
                           <tbody>
                             {values.shares?.map((share, index) => {
-                              const member = group.members.find(m => m._id === share.user);
-                              const isManual = manualUsers.has(share.user);
+                              const shareUserId = typeof share.user === 'object' && share.user !== null 
+                                ? share.user._id 
+                                : share.user;
+                              const member = group?.members?.find(m => m._id === shareUserId) || (typeof share.user === 'object' ? share.user : null);
+                              const isManual = manualUsers.has(shareUserId);
                               return (
-                                <tr key={`${share.user}-${index}`}>
+                                <tr key={`${shareUserId}-${index}`}>
                                   <SplitTableCell>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                       <span>{member?.firstName} {member?.lastName}</span>
@@ -674,7 +683,7 @@ export default function ExpenseForm({
                                         amount={share.amount}
                                         disabled={splitMethod === 'equal'}
                                         onChange={(newAmt) => 
-                                          handleShareAmountChange(share.user, newAmt, values, setFieldValue)
+                                          handleShareAmountChange(shareUserId, newAmt, values, setFieldValue)
                                         }
                                         onBlur={() => handleShareAmountBlur(values, setFieldValue)}
                                       />
