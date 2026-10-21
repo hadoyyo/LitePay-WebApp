@@ -45,18 +45,20 @@ exports.login = asyncHandler(async (req, res, next) => {
 });
 
 const sendTokenResponse = (user, statusCode, res) => {
-
   const token = user.getSignedJwtToken();
+
+  const cookieExpireDays = parseInt(process.env.JWT_COOKIE_EXPIRE, 10) || 30;
 
   const options = {
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+      Date.now() + cookieExpireDays * 24 * 60 * 60 * 1000
     ),
     httpOnly: true
   };
 
   if (process.env.NODE_ENV === 'production') {
     options.secure = true;
+    options.sameSite = 'none';
   }
 
   res
