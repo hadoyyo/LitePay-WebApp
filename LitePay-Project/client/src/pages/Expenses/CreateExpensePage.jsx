@@ -34,7 +34,7 @@ export default function CreateExpensePage() {
 
   const initialValues = {
     title: '',
-    amount: 0,
+    amount: '',
     date: new Date(),
     category: 'food',
     paidBy: user?._id || '',

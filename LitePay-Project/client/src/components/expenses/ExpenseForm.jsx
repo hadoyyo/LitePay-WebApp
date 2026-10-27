@@ -153,6 +153,7 @@ const SubmitButton = ({ isEditing }) => {
 const expenseSchema = Yup.object().shape({
   title: Yup.string().required('Tytuł jest wymagany'),
   amount: Yup.number()
+    .transform((value, originalValue) => (String(originalValue).trim() === '' ? undefined : value))
     .required('Kwota jest wymagana')
     .min(0.01, 'Kwota musi być większa niż 0'),
   date: Yup.date().required('Data jest wymagana'),
@@ -219,7 +220,7 @@ const recalculateShares = (
   const safeTotal = Math.max(0, parseFloat(totalAmount) || 0);
 
   const updatedShares = shares.map(share => {
-    const sUserId = typeof share.user === 'object' && share.user !== null ? share.user._id : share.user;
+    const sUserId = typeof share.user === 'object' ? share.user._id : share.user;
     if (activeUserId && sUserId === activeUserId && activeUserNewAmount !== null) {
       return { ...share, user: sUserId, amount: activeUserNewAmount };
     }
@@ -331,7 +332,7 @@ export default function ExpenseForm({
 
         if (initialValues.shares && initialValues.shares.length > 0) {
           const membersFromShares = initialValues.shares.map(share => 
-            typeof share.user === 'object' && share.user !== null ? share.user._id : share.user
+            typeof share.user === 'object' ? share.user._id : share.user
           );
           setSelectedMembers(membersFromShares);
           if (initialValues.splitType) {
@@ -360,7 +361,7 @@ export default function ExpenseForm({
         ...values,
         amount: parseFloat(values.amount),
         shares: values.shares.map(share => ({
-          user: typeof share.user === 'object' && share.user !== null ? share.user._id : share.user,
+          user: typeof share.user === 'object' ? share.user._id : share.user,
           amount: parseFloat(Number(share.amount).toFixed(2))
         }))
       };
@@ -451,10 +452,7 @@ export default function ExpenseForm({
     } else {
       const currentShares = values.shares || [];
       const baseShares = newSelectedMembers.map(id => {
-        const found = currentShares.find(s => {
-          const sId = typeof s.user === 'object' && s.user !== null ? s.user._id : s.user;
-          return sId === id;
-        });
+        const found = currentShares.find(s => s.user === id);
         return {
           user: id,
           amount: found ? found.amount : 0
@@ -471,7 +469,7 @@ export default function ExpenseForm({
 
   const getInitialValues = () => ({
     title: initialValues.title || '',
-    amount: initialValues.amount || 0,
+    amount: isEditing ? (initialValues.amount ?? '') : '',
     date: initialValues.date ? new Date(initialValues.date) : new Date(),
     category: initialValues.category || 'food',
     paidBy: initialValues.paidBy?._id || initialValues.paidBy || (group?.members[0]?._id || ''),
@@ -544,7 +542,7 @@ export default function ExpenseForm({
                     }
                   }
                 }}
-                value={values.amount}
+                value={values.amount === 0 ? '' : (values.amount ?? '')}
               />
 
               <SelectInput
@@ -660,13 +658,11 @@ export default function ExpenseForm({
                           </thead>
                           <tbody>
                             {values.shares?.map((share, index) => {
-                              const shareUserId = typeof share.user === 'object' && share.user !== null 
-                                ? share.user._id 
-                                : share.user;
+                              const shareUserId = typeof share.user === 'object' && share.user !== null ? share.user._id : share.user;
                               const member = group?.members?.find(m => m._id === shareUserId) || (typeof share.user === 'object' ? share.user : null);
-                              const isManual = manualUsers.has(shareUserId);
+                              const isManual = manualUsers.has(typeof share.user === "object" && share.user !== null ? share.user._id : share.user);
                               return (
-                                <tr key={`${shareUserId}-${index}`}>
+                                <tr key={`${typeof share.user === "object" && share.user !== null ? share.user._id : share.user}-${index}`}>
                                   <SplitTableCell>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                       <span>{member?.firstName} {member?.lastName}</span>
@@ -683,7 +679,7 @@ export default function ExpenseForm({
                                         amount={share.amount}
                                         disabled={splitMethod === 'equal'}
                                         onChange={(newAmt) => 
-                                          handleShareAmountChange(shareUserId, newAmt, values, setFieldValue)
+                                          handleShareAmountChange(typeof share.user === "object" && share.user !== null ? share.user._id : share.user, newAmt, values, setFieldValue)
                                         }
                                         onBlur={() => handleShareAmountBlur(values, setFieldValue)}
                                       />
