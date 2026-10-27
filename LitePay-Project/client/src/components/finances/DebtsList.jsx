@@ -85,7 +85,7 @@ export default function DebtsList({ debts, owedToYou }) {
                   {debt.user.profileImage ? (
                     <img 
                       src={
-                        debt.user.profileImage.startsWith('/uploads') 
+                        debt.user.profileImage.startsWith('http') ? debt.user.profileImage : debt.user.profileImage.startsWith('/uploads') 
                           ? `${process.env.REACT_APP_API_URL.replace('/api', '')}${debt.user.profileImage}`
                           : `${process.env.REACT_APP_API_URL}/uploads/${debt.user.profileImage}`
                       } 
@@ -126,7 +126,7 @@ export default function DebtsList({ debts, owedToYou }) {
                   {debt.user.profileImage ? (
                     <img 
                       src={
-                        debt.user.profileImage.startsWith('/uploads') 
+                        debt.user.profileImage.startsWith('http') ? debt.user.profileImage : debt.user.profileImage.startsWith('/uploads') 
                           ? `${process.env.REACT_APP_API_URL.replace('/api', '')}${debt.user.profileImage}`
                           : `${process.env.REACT_APP_API_URL}/uploads/${debt.user.profileImage}`
                       } 

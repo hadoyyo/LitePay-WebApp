@@ -87,7 +87,7 @@ exports.updatePhoto = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('Proszę przesłać plik', 400));
   }
 
-  const imagePath = `/uploads/${req.file.filename}`;
+  const imagePath = req.file.path ? req.file.path : `/uploads/${req.file.filename}`;
   
   await User.findByIdAndUpdate(req.user.id, { profileImage: imagePath });
 

@@ -464,7 +464,7 @@ export default function GroupDetailsPage() {
                       {member.profileImage ? (
                         <img 
                           src={
-                            member.profileImage.startsWith('/uploads') 
+                            member.profileImage.startsWith('http') ? member.profileImage : member.profileImage.startsWith('/uploads') 
                               ? `${process.env.REACT_APP_API_URL.replace('/api', '')}${member.profileImage}`
                               : `${process.env.REACT_APP_API_URL}/uploads/${member.profileImage}`
                           } 

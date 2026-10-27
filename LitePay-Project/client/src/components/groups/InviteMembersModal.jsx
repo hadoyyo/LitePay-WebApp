@@ -287,7 +287,7 @@ export default function InviteMembersModal({ groupId, groupName, isOpen, onClose
                     {user.profileImage ? (
                       <img 
                         src={
-                          user.profileImage.startsWith('/uploads') 
+                          user.profileImage.startsWith('http') ? user.profileImage : user.profileImage.startsWith('/uploads') 
                             ? `${process.env.REACT_APP_API_URL.replace('/api', '')}${user.profileImage}`
                             : `${process.env.REACT_APP_API_URL}/uploads/${user.profileImage}`
                         } 

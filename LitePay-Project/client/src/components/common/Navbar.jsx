@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { FiMoon, FiSun, FiBell } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { useInvitations } from '../../contexts/InvitationsContext';
+import { getImageUrl } from '../../utils/image';
 
 const NavbarContainer = styled.div`
   display: flex;
@@ -13,9 +14,8 @@ const NavbarContainer = styled.div`
 
 const Logo = styled.div`
   img {
-    height: 30px;
+    height: 40px;
     width: auto;
-    transition: opacity 0.3s ease;
   }
 `;
 
@@ -29,7 +29,7 @@ const ThemeToggle = styled.button`
   background: none;
   border: none;
   color: ${({ theme }) => theme.colors.text};
-  font-size: 1.8rem;
+  font-size: 2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -41,12 +41,14 @@ const ThemeToggle = styled.button`
 `;
 
 const NotificationButton = styled.button`
-  position: relative;
   background: none;
   border: none;
   color: ${({ theme }) => theme.colors.text};
-  font-size: 1.8rem;
+  font-size: 2rem;
   cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
   transition: transform 0.2s ease;
 
   &:hover {
@@ -99,9 +101,7 @@ const UserAvatar = styled.div`
 export default function Navbar({ user, toggleTheme, theme }) {
   const navigate = useNavigate();
   const { invitationsCount } = useInvitations();
-  const imageSrc = `${process.env.REACT_APP_API_URL.replace('/api', '')}${
-    user?.profileImage || '/uploads/default.jpg'
-  }?t=${Date.now()}`;
+  const imageSrc = getImageUrl(user?.profileImage);
 
   const handleNotificationClick = () => {
     navigate('/');
@@ -146,7 +146,7 @@ export default function Navbar({ user, toggleTheme, theme }) {
               alt={`Profil ${user.firstName} ${user.lastName}`}
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = `${process.env.REACT_APP_API_URL.replace('/api', '')}/uploads/default.jpg`;
+                e.target.src = getImageUrl('/uploads/default.jpg');
               }}
             />
           )}

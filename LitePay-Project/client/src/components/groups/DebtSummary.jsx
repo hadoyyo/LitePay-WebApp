@@ -205,7 +205,7 @@ export default function DebtSummary({ expenses, group }) {
                   {debt.user.profileImage ? (
                     <img 
                       src={
-                        debt.user.profileImage.startsWith('/uploads') 
+                        debt.user.profileImage.startsWith('http') ? debt.user.profileImage : debt.user.profileImage.startsWith('/uploads') 
                           ? `${process.env.REACT_APP_API_URL.replace('/api', '')}${debt.user.profileImage}`
                           : `${process.env.REACT_APP_API_URL}/uploads/${debt.user.profileImage}`
                       } 
@@ -241,7 +241,7 @@ export default function DebtSummary({ expenses, group }) {
                   {credit.user.profileImage ? (
                     <img 
                       src={
-                        credit.user.profileImage.startsWith('/uploads') 
+                        credit.user.profileImage.startsWith('http') ? credit.user.profileImage : credit.user.profileImage.startsWith('/uploads') 
                           ? `${process.env.REACT_APP_API_URL.replace('/api', '')}${credit.user.profileImage}`
                           : `${process.env.REACT_APP_API_URL}/uploads/${credit.user.profileImage}`
                       } 

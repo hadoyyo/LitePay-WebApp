@@ -8,6 +8,7 @@ import Button from '../../components/common/Button';
 import TextInput from '../../components/common/TextInput';
 import ErrorMessage from '../../components/common/ErrorMessage';
 import { FiUser, FiMail, FiCamera, FiLock } from 'react-icons/fi';
+import { getImageUrl } from '../../utils/image';
 
 const ProfileContainer = styled.div`
   display: grid;
@@ -127,16 +128,21 @@ export default function ProfilePage() {
   const [passwordError, setPasswordError] = useState(null);
   const [passwordSuccess, setPasswordSuccess] = useState(null);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const handlePhotoChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    const objectUrl = URL.createObjectURL(file);
+    setPreviewImage(objectUrl);
 
     try {
       await updatePhoto(file);
       setSuccess('Zdjęcie profilowe zostało zaktualizowane');
       setTimeout(() => setSuccess(null), 3000);
     } catch (err) {
+      setPreviewImage(null);
       setError('Wystąpił błąd podczas aktualizacji zdjęcia');
     }
   };
@@ -174,11 +180,12 @@ export default function ProfilePage() {
         <AvatarSection>
           <Avatar>
             <img
-              src={`${process.env.REACT_APP_API_URL.replace('/api', '')}${user.profileImage || '/uploads/default.jpg'}?t=${Date.now()}`}
+              key={previewImage || user.profileImage}
+              src={previewImage || getImageUrl(user.profileImage)}
               alt="Profile"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = `${process.env.REACT_APP_API_URL.replace('/api', '')}/uploads/default.jpg`;
+                e.target.src = getImageUrl('/uploads/default.jpg');
               }}
             />
           </Avatar>
