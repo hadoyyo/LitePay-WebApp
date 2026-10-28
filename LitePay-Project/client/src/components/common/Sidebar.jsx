@@ -41,7 +41,6 @@ const Logo = styled.h1`
   white-space: nowrap;
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   transition: opacity 0.3s ease;
-  /* Dodano aby tekst nie wychodził poza kontener */
   overflow: hidden;
 `;
 
@@ -54,14 +53,12 @@ const ToggleButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Dodano aby przycisk był zawsze klikalny */
   position: relative;
   z-index: 20;
 `;
 
 const Nav = styled.nav`
   padding: 2rem 0;
-  /* Dodano aby zawartość nie była przycinana */
   overflow: visible;
 `;
 
@@ -73,7 +70,6 @@ const NavItem = styled(NavLink)`
   text-decoration: none;
   transition: all 0.3s ease;
   white-space: nowrap;
-  /* Dodano aby elementy nawigacji nie wychodziły poza kontener */
   overflow: hidden;
 
   &:hover {
@@ -100,7 +96,6 @@ const IconWrapper = styled.span`
 const NavText = styled.span`
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   transition: opacity 0.3s ease;
-  /* Dodano aby tekst nie wychodził poza kontener */
   overflow: hidden;
 `;
 
@@ -115,7 +110,6 @@ const LogoutButton = styled(NavLink)`
   width: 100%;
   white-space: nowrap;
   transition: all 0.3s ease;
-  /* Dodano aby przycisk nie wychodził poza kontener */
   overflow: hidden;
 
   &:hover {
@@ -124,7 +118,22 @@ const LogoutButton = styled(NavLink)`
   }
 `;
 
-export default function Sidebar({ isOpen, toggleSidebar, logout }) {
+export default function Sidebar({ isOpen, toggleSidebar, closeSidebar, logout }) {
+  const handleNavClick = () => {
+    if (closeSidebar) {
+      closeSidebar();
+    }
+  };
+
+  const handleLogout = () => {
+    if (closeSidebar) {
+      closeSidebar();
+    }
+    if (logout) {
+      logout();
+    }
+  };
+
   return (
     <SidebarContainer $isOpen={isOpen}>
       <SidebarHeader>
@@ -134,38 +143,38 @@ export default function Sidebar({ isOpen, toggleSidebar, logout }) {
         </ToggleButton>
       </SidebarHeader>
       <Nav>
-        <NavItem to="/">
+        <NavItem to="/" onClick={handleNavClick}>
           <IconWrapper $isOpen={isOpen}>
             <FiHome />
           </IconWrapper>
           <NavText $isOpen={isOpen}>Strona główna</NavText>
         </NavItem>
-        <NavItem to="/profile">
+        <NavItem to="/profile" onClick={handleNavClick}>
           <IconWrapper $isOpen={isOpen}>
             <FiUser />
           </IconWrapper>
           <NavText $isOpen={isOpen}>Moje dane</NavText>
         </NavItem>
-        <NavItem to="/groups">
+        <NavItem to="/groups" onClick={handleNavClick}>
           <IconWrapper $isOpen={isOpen}>
             <FiUsers />
           </IconWrapper>
           <NavText $isOpen={isOpen}>Grupy</NavText>
         </NavItem>
-        <NavItem to="/finances">
+        <NavItem to="/finances" onClick={handleNavClick}>
           <IconWrapper $isOpen={isOpen}>
             <FiDollarSign />
           </IconWrapper>
           <NavText $isOpen={isOpen}>Finanse</NavText>
         </NavItem>
-        <NavItem to="/help">
+        <NavItem to="/help" onClick={handleNavClick}>
           <IconWrapper $isOpen={isOpen}>
             <FiHelpCircle />
           </IconWrapper>
           <NavText $isOpen={isOpen}>Pomoc</NavText>
         </NavItem>
       </Nav>
-      <LogoutButton onClick={logout}>
+      <LogoutButton onClick={handleLogout}>
         <IconWrapper $isOpen={isOpen}>
           <FiLogOut />
         </IconWrapper>
