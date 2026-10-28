@@ -37,8 +37,7 @@ const features = [
     description: 'Tu wyświetlają się ostatnie wydarzenia w grupach i zaproszenia do nowych grup',
     position: { 
       top: '-25px', 
-      right: '-10px', 
-      transform: 'translateX(-50%)' 
+      right: '-10px' 
     }
   },
   {
@@ -64,10 +63,10 @@ const features = [
     title: 'Potrzebujesz pomocy?',
     description: 'Zajrzyj do zakładki "Pomoc" w menu, aby uzyskać więcej informacji',
     position: { 
-      top: '135px', 
-      right: '-10px', 
-      transform: 'translateX(-50%)' 
-    }
+      top: '168px', 
+      right: '-10px' 
+    },
+    size: '62px'
   },
 
   {

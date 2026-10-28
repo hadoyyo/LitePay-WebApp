@@ -19,7 +19,7 @@ const RegisterContainer = styled.div`
   flex-direction: column;
 
   @media (max-width: 576px) {
-    padding: 1rem;
+    padding: 1rem 0.75rem;
   }
 `;
 
@@ -42,6 +42,10 @@ const Logo = styled.div`
 const AuthCard = styled(Card)`
   width: 100%;
   max-width: 500px;
+
+  @media (max-width: 576px) {
+    max-width: 100%;
+  }
 `;
 
 const AuthTitle = styled.h1`

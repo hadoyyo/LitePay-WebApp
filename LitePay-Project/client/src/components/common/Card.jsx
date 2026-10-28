@@ -9,7 +9,7 @@ const CardContainer = styled.div`
   transition: box-shadow 0.3s ease;
 
   @media (max-width: 576px) {
-    padding: 1.5rem;
+    padding: ${({ $padding }) => $padding || '1.5rem 1.2rem'};
   }
 
   &:hover {
