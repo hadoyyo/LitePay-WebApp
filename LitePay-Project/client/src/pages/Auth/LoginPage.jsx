@@ -20,13 +20,15 @@ const LoginContainer = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    padding: 1rem;
+    padding: 1rem 0.75rem;
+    gap: 2rem;
   }
 `;
 
 const LeftSection = styled.div`
   max-width: 500px;
   text-align: center;
+  width: 100%;
 `;
 
 const Logo = styled.div`
@@ -109,6 +111,10 @@ const FeatureCard = styled.div`
 const AuthCard = styled(Card)`
   width: 100%;
   max-width: 450px;
+
+  @media (max-width: 576px) {
+    max-width: 100%;
+  }
 `;
 
 const AuthTitle = styled.h1`
