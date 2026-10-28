@@ -237,7 +237,7 @@ exports.deleteExpense = asyncHandler(async (req, res, next) => {
     relatedGroup: group._id,
     relatedExpense: expense._id,
     relatedUser: req.user.id,
-    message: `Usunąłeś/-ełaś wydatek "${expense.title}" (${expense.amount.toFixed(2)} zł) z grupy "${group.name}"`,
+    message: `Usunąłeś/ełaś wydatek "${expense.title}" (${expense.amount.toFixed(2)} zł) z grupy "${group.name}"`,
     messageFor: 'user',
     createdAt: new Date()
   });
@@ -248,7 +248,7 @@ exports.deleteExpense = asyncHandler(async (req, res, next) => {
     relatedGroup: group._id,
     relatedExpense: expense._id,
     relatedUser: req.user.id,
-    message: `${userFullName} usunął/-ęła wydatek "${expense.title}" (${expense.amount.toFixed(2)} zł) z grupy "${group.name}"`,
+    message: `${userFullName} usunął/ęła wydatek "${expense.title}" (${expense.amount.toFixed(2)} zł) z grupy "${group.name}"`,
     messageFor: 'group',
     createdAt: new Date()
   });

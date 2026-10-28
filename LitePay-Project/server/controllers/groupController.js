@@ -184,7 +184,7 @@ exports.deleteGroup = asyncHandler(async (req, res, next) => {
     type: 'group_deleted',
     relatedGroup: group._id,
     relatedUser: req.user.id,
-    message: `Usunąłeś/-ełaś grupę "${group.name}"`,
+    message: `Usunąłeś/ełaś grupę "${group.name}"`,
     messageFor: 'user',
     createdAt: new Date()
   });
@@ -197,7 +197,7 @@ exports.deleteGroup = asyncHandler(async (req, res, next) => {
         type: 'group_deleted',
         relatedGroup: group._id,
         relatedUser: req.user.id,
-        message: `${userFullName} usunął/-ęła grupę "${group.name}"`,
+        message: `${userFullName} usunął/ęła grupę "${group.name}"`,
         messageFor: 'user',
         createdAt: new Date()
       });
@@ -361,7 +361,7 @@ exports.removeGroupMember = asyncHandler(async (req, res, next) => {
       type: 'group_left',
       relatedGroup: group._id,
       relatedUser: req.user.id,
-      message: `Zostałeś/-aś usunięty/-a z grupy "${group.name}" przez ${removingUserName}`,
+      message: `Zostałeś/aś usunięty/a z grupy "${group.name}" przez ${removingUserName}`,
       messageFor: 'user',
       createdAt: new Date()
     });
@@ -371,7 +371,7 @@ exports.removeGroupMember = asyncHandler(async (req, res, next) => {
       type: 'group_left',
       relatedGroup: group._id,
       relatedUser: req.params.memberId,
-      message: `${removingUserName} usunął/-ęła ${removedUserName} z grupy "${group.name}"`,
+      message: `${removingUserName} usunął/ęła ${removedUserName} z grupy "${group.name}"`,
       messageFor: 'group',
       createdAt: new Date()
     });
@@ -381,7 +381,7 @@ exports.removeGroupMember = asyncHandler(async (req, res, next) => {
       type: 'group_left',
       relatedGroup: group._id,
       relatedUser: req.params.memberId,
-      message: `Usunąłeś/-ęłaś ${removedUserName} z grupy "${group.name}"`,
+      message: `Usunąłeś/ęłaś ${removedUserName} z grupy "${group.name}"`,
       messageFor: 'user',
       createdAt: new Date()
     });
@@ -394,7 +394,7 @@ exports.removeGroupMember = asyncHandler(async (req, res, next) => {
       relatedGroup: group._id,
       relatedExpense: expense._id,
       relatedUser: req.user.id,
-      message: `${isSelf ? removedUserName : removingUserName} usunął/-ęła wydatek "${expense.title}" (${expense.amount.toFixed(2)} zł) z grupy "${group.name}"`,
+      message: `${isSelf ? removedUserName : removingUserName} usunął/ęła wydatek "${expense.title}" (${expense.amount.toFixed(2)} zł) z grupy "${group.name}"`,
       messageFor: 'group',
       createdAt: new Date()
     })
@@ -407,7 +407,7 @@ exports.removeGroupMember = asyncHandler(async (req, res, next) => {
       relatedGroup: group._id,
       relatedExpense: expense._id,
       relatedUser: req.user.id,
-      message: `Usunąłeś/-ęłaś wydatek "${expense.title}" (${expense.amount.toFixed(2)} zł) z grupy "${group.name}"`,
+      message: `Usunąłeś/ęłaś wydatek "${expense.title}" (${expense.amount.toFixed(2)} zł) z grupy "${group.name}"`,
       messageFor: 'user',
       createdAt: new Date()
     })
