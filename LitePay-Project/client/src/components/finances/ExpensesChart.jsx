@@ -21,9 +21,26 @@ ChartJS.register(
 );
 
 const ChartContainer = styled.div`
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-bottom: 1rem;
+`;
+
+const ChartWrapper = styled.div`
   position: relative;
-  height: 400px;
-  margin-bottom: 7.5rem;
+  height: 350px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  @media (max-width: 768px) {
+    height: 320px;
+  }
+
+  @media (max-width: 480px) {
+    height: 290px;
+  }
 `;
 
 const ChartControls = styled.div`
@@ -31,6 +48,8 @@ const ChartControls = styled.div`
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1rem;
+  width: 100%;
+  min-width: 0;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -42,11 +61,10 @@ const ChartControls = styled.div`
 const PeriodButtons = styled.div`
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 1rem;
   justify-content: center;
+  flex-wrap: wrap;
 
   @media (min-width: 768px) {
-    margin-bottom: 0;
     justify-content: flex-start;
   }
 `;
@@ -73,6 +91,14 @@ export default function ExpensesChart({ expenses }) {
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    layout: {
+      padding: {
+        bottom: 12,
+        left: 5,
+        right: 5,
+        top: 5
+      }
+    },
     plugins: {
       legend: {
         display: false
@@ -87,10 +113,16 @@ export default function ExpensesChart({ expenses }) {
     },
     scales: {
       x: {
-      grid: {
-        display: false
-      }
-    },
+        grid: {
+          display: false
+        },
+        ticks: {
+          maxRotation: 45,
+          minRotation: 0,
+          autoSkip: true,
+          maxTicksLimit: 12
+        }
+      },
       y: {
         beginAtZero: true,
         ticks: {
@@ -128,7 +160,9 @@ export default function ExpensesChart({ expenses }) {
         </PeriodButtons>
       </ChartControls>
 
-      <Bar data={getChartData()} options={chartOptions} />
+      <ChartWrapper>
+        <Bar data={getChartData()} options={chartOptions} />
+      </ChartWrapper>
     </ChartContainer>
   );
 }

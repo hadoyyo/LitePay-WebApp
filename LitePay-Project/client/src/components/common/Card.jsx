@@ -7,6 +7,10 @@ const CardContainer = styled.div`
   padding: ${({ $padding }) => $padding || '2rem'};
   margin-bottom: 2rem;
   transition: box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 
   @media (max-width: 576px) {
     padding: ${({ $padding }) => $padding || '1.5rem 1.2rem'};
@@ -34,6 +38,9 @@ const CardTitle = styled.h3`
 
 const CardBody = styled.div`
   color: ${({ theme }) => theme.colors.textSecondary};
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 `;
 
 export default function Card({ title, children, padding, hover, actions, className }) {

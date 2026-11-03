@@ -10,12 +10,30 @@ const NavbarContainer = styled.div`
   align-items: center;
   padding: 1rem 0;
   margin-bottom: 2rem;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
   img {
     height: 40px;
     width: auto;
+    object-fit: contain;
+
+    @media (max-width: 768px) {
+      height: 24px;
+    }
+
+    @media (max-width: 480px) {
+      height: 22px;
+    }
   }
 `;
 
@@ -23,6 +41,10 @@ const NavbarActions = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
+
+  @media (max-width: 480px) {
+    gap: 1.2rem;
+  }
 `;
 
 const ThemeToggle = styled.button`
@@ -34,6 +56,10 @@ const ThemeToggle = styled.button`
   display: flex;
   align-items: center;
   transition: transform 0.2s ease;
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 
   &:hover {
     transform: scale(1.1);
@@ -50,6 +76,10 @@ const NotificationButton = styled.button`
   display: flex;
   align-items: center;
   transition: transform 0.2s ease;
+
+  @media (max-width: 480px) {
+    font-size: 1.8rem;
+  }
 
   &:hover {
     transform: scale(1.1);
@@ -87,6 +117,11 @@ const UserAvatar = styled.div`
   overflow: hidden;
   transition: transform 0.2s ease;
 
+  @media (max-width: 480px) {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
   &:hover {
     transform: scale(1.05);
   }
@@ -109,7 +144,7 @@ export default function Navbar({ user, toggleTheme, theme }) {
 
   return (
     <NavbarContainer>
-      <Logo>
+      <Logo onClick={() => navigate('/')}>
         <img 
           src={theme === 'light' ? '/images/logo.png' : '/images/logo-dark.png'} 
           alt="Logo aplikacji" 

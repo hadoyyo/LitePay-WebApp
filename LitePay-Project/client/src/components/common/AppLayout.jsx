@@ -10,6 +10,9 @@ const LayoutContainer = styled.div`
   display: flex;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.background};
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 `;
 
 const MainContent = styled.main`
@@ -17,10 +20,15 @@ const MainContent = styled.main`
   padding: 2rem;
   margin-left: ${({ $isSidebarOpen }) => ($isSidebarOpen ? '25rem' : '6rem')};
   transition: margin-left 0.3s ease;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 
   @media (max-width: 768px) {
     margin-left: 6rem;
     padding: 1rem;
+    width: calc(100% - 6rem);
+    max-width: calc(100vw - 6rem);
   }
 `;
 

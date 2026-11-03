@@ -66,6 +66,16 @@ const TwoColumns = styled.div`
   }
 `;
 
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  > * {
+    margin-bottom: 0;
+  }
+`;
+
 const EditForm = styled.div`
   display: flex;
   flex-direction: column;
@@ -399,7 +409,7 @@ export default function GroupDetailsPage() {
       </GroupHeader>
 
       <TwoColumns>
-        <div>
+        <Column>
           <Card>
             <SectionTitle>
               <FiDollarSign /> Podsumowanie
@@ -449,9 +459,9 @@ export default function GroupDetailsPage() {
               </p>
             )}
           </Card>
-        </div>
+        </Column>
 
-        <div>
+        <Column>
           <Card>
             <SectionTitle>
               <FiUsers /> Członkowie
@@ -550,7 +560,7 @@ export default function GroupDetailsPage() {
               </p>
             )}
           </Card>
-        </div>
+        </Column>
       </TwoColumns>
 
       {/* Edit Group Modal */}

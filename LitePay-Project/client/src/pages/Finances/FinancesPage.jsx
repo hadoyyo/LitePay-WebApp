@@ -6,18 +6,28 @@ import Card from '../../components/common/Card';
 import Tabs from '../../components/common/Tabs';
 import ExpensesChart from '../../components/finances/ExpensesChart';
 import DebtsList from '../../components/finances/DebtsList';
-
+import Loader from '../../components/common/Loader';
 
 const FinancesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 `;
 
 const SummaryCards = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.5rem;
+  width: 100%;
+  min-width: 0;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 `;
 
 const SummaryCard = styled.div`
@@ -25,6 +35,8 @@ const SummaryCard = styled.div`
   background-color: ${({ theme }) => theme.colors.cardBackground};
   border-radius: 20px;
   box-shadow: ${({ theme }) => theme.shadows.sm};
+  min-width: 0;
+  overflow: hidden;
 `;
 
 const SummaryCardTitle = styled.h3`
@@ -35,6 +47,9 @@ const SummaryCardTitle = styled.h3`
   margin-bottom: 1rem;
   font-size: 1.4rem;
   color: ${({ theme }) => theme.colors.text};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const SummaryCardValue = styled.p`
@@ -43,10 +58,14 @@ const SummaryCardValue = styled.p`
   font-weight: 600;
   color: ${({ theme, $positive }) => 
     $positive ? theme.colors.success : theme.colors.danger};
+  word-break: break-word;
 `;
 
 const TabContent = styled.div`
   margin-top: 2rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 `;
 
 const tabs = [
@@ -83,7 +102,7 @@ export default function FinancesPage() {
   }, []);
 
   if (loading || !summary) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
