@@ -3,6 +3,10 @@ import styled from 'styled-components';
 const TabsContainer = styled.div`
   display: flex;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const Tab = styled.button`
@@ -19,6 +23,8 @@ const Tab = styled.button`
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};

@@ -4,6 +4,7 @@ const ButtonBase = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: ${({ $iconOnly, $size }) => ($iconOnly ? '0' : $size === 'sm' ? '0.2rem' : '0.3rem')};
   padding: ${({ $size }) => 
     $size === 'sm' ? '0.6rem 1.2rem' : 
     $size === 'lg' ? '1rem 2rem' : '0.8rem 1.6rem'};
@@ -34,7 +35,7 @@ const ButtonBase = styled.button`
   }
 
   svg {
-    margin-right: ${({ $iconOnly }) => ($iconOnly ? '0' : '0rem')};
+    flex-shrink: 0;
   }
 `;
 
