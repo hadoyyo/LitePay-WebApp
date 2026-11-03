@@ -9,6 +9,7 @@ import TextInput from '../../components/common/TextInput';
 import ErrorMessage from '../../components/common/ErrorMessage';
 import { FiUser, FiMail, FiCamera, FiLock } from 'react-icons/fi';
 import { getImageUrl } from '../../utils/image';
+import ImageCropModal from '../../components/common/ImageCropModal';
 
 const ProfileContainer = styled.div`
   display: grid;
@@ -129,21 +130,39 @@ export default function ProfilePage() {
   const [passwordSuccess, setPasswordSuccess] = useState(null);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const [imageToCrop, setImageToCrop] = useState(null);
+  const [isCropModalOpen, setIsCropModalOpen] = useState(false);
 
-  const handlePhotoChange = async (e) => {
+  const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const objectUrl = URL.createObjectURL(file);
+    setImageToCrop(objectUrl);
+    setIsCropModalOpen(true);
+    e.target.value = '';
+  };
+
+  const handleCropComplete = async (croppedFile) => {
+    const objectUrl = URL.createObjectURL(croppedFile);
     setPreviewImage(objectUrl);
+    setIsCropModalOpen(false);
 
     try {
-      await updatePhoto(file);
+      await updatePhoto(croppedFile);
       setSuccess('Zdjęcie profilowe zostało zaktualizowane');
       setTimeout(() => setSuccess(null), 3000);
     } catch (err) {
       setPreviewImage(null);
       setError('Wystąpił błąd podczas aktualizacji zdjęcia');
+    }
+  };
+
+  const handleCropCancel = () => {
+    setIsCropModalOpen(false);
+    if (imageToCrop) {
+      URL.revokeObjectURL(imageToCrop);
+      setImageToCrop(null);
     }
   };
 
@@ -361,6 +380,13 @@ export default function ProfilePage() {
           )}
         </PasswordSection>
       </Card>
+
+      <ImageCropModal
+        isOpen={isCropModalOpen}
+        imageSrc={imageToCrop}
+        onClose={handleCropCancel}
+        onCropComplete={handleCropComplete}
+      />
     </ProfileContainer>
   );
 }
