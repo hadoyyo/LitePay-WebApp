@@ -5,13 +5,17 @@ const DebtsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
+  width: 100%;
+  min-width: 0;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
 `;
 
-const DebtSection = styled.div``;
+const DebtSection = styled.div`
+  min-width: 0;
+`;
 
 const SectionTitle = styled.h3`
   display: flex;
@@ -29,6 +33,8 @@ const DebtItem = styled.div`
   margin-bottom: 0.5rem;
   background-color: ${({ theme }) => theme.colors.cardBackground};
   border-radius: 4px;
+  min-width: 0;
+  gap: 1rem;
 `;
 
 const DebtUser = styled.div`
@@ -36,6 +42,8 @@ const DebtUser = styled.div`
   align-items: center;
   gap: 1rem;
   color: ${({ theme }) => theme.colors.text};
+  min-width: 0;
+  overflow: hidden;
 `;
 
 const UserAvatar = styled.div`
@@ -47,6 +55,7 @@ const UserAvatar = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
 
   svg {
     color: ${({ theme }) => theme.colors.primary};
@@ -61,10 +70,15 @@ const UserAvatar = styled.div`
 
 const UserName = styled.p`
   color: ${({ theme }) => theme.colors.text};
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const DebtAmount = styled.div`
   font-weight: 600;
+  flex-shrink: 0;
   color: ${({ theme, $positive }) => 
     $positive ? theme.colors.success : theme.colors.danger};
 `;
