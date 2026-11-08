@@ -12,16 +12,29 @@ const ModalOverlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.15s ease-out;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 `;
 
 const ModalContent = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 16px;
   width: 90%;
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
+  box-shadow: ${({ theme }) => theme.shadows.lg};
+  animation: scaleIn 0.2s ease-out;
+
+  @keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
 `;
 
 const ModalHeader = styled.div`
