@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Formik, Form, useFormikContext } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import { FiDollarSign, FiUser, FiCalendar, FiTag, FiCheck, FiX } from 'react-icons/fi';
+import { FiDollarSign, FiUser, FiTag, FiCheck, FiX } from 'react-icons/fi';
 import axios from 'axios';
 import Button from '../common/Button';
 import TextInput from '../common/TextInput';
@@ -558,31 +558,11 @@ export default function ExpenseForm({
             </TwoColumns>
 
             <TwoColumns>
-              <div>
-                <div style={{ position: 'relative' }}>
-                  <FiCalendar style={{
-                    position: 'absolute',
-                    left: '10px',
-                    top: '70%',
-                    transform: 'translateY(-50%)',
-                    zIndex: 1,
-                    color: '#6b7280'
-                  }} />
-                  <DatePicker
-                    selected={values.date}
-                    label="Data"
-                    onChange={(date) => setFieldValue('date', date)}
-                    dateFormat="dd/MM/yyyy"
-                    customInput={
-                      <TextInput
-                        style={{ paddingLeft: '35px' }}
-                        value={values.date.toLocaleDateString()}
-                        readOnly
-                      />
-                    }
-                  />
-                </div>
-              </div>
+              <DatePicker
+                selected={values.date}
+                label="Data"
+                onChange={(date) => setFieldValue('date', date)}
+              />
 
               {group && (
                 <SelectInput
