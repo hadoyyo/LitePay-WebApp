@@ -20,7 +20,8 @@ const SelectWrapper = styled.div`
 
 const StyledSelect = styled.select`
   width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
+  height: 4.2rem;
+  padding: 1rem 2.5rem 1rem ${({ $hasIcon }) => ($hasIcon ? '3.4rem' : '1rem')};
   border: 1px solid ${({ theme, $error }) => 
     $error ? theme.colors.danger : theme.colors.border};
   border-radius: 16px;
@@ -41,8 +42,10 @@ const IconWrapper = styled.span`
   position: absolute;
   left: 1rem;
   font-size: 1.8rem;
-  margin-top: 0.5rem;
   color: ${({ theme }) => theme.colors.textSecondary};
+  pointer-events: none;
+  display: flex;
+  align-items: center;
 `;
 
 const ChevronWrapper = styled.span`
@@ -51,6 +54,8 @@ const ChevronWrapper = styled.span`
   font-size: 1.8rem;
   color: ${({ theme }) => theme.colors.textSecondary};
   pointer-events: none;
+  display: flex;
+  align-items: center;
 `;
 
 export default function SelectInput({ 
@@ -71,6 +76,7 @@ export default function SelectInput({
           value={value} 
           onChange={onChange}
           $error={error}
+          $hasIcon={!!icon}
           {...props}
         >
           {options.map(option => (

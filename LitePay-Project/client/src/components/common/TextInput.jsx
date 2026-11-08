@@ -22,11 +22,15 @@ const InputIcon = styled.span`
   left: 1rem;
   font-size: 1.8rem;
   color: ${({ theme }) => theme.colors.textSecondary};
+  pointer-events: none;
+  display: flex;
+  align-items: center;
 `;
 
 const InputField = styled.input`
   width: 100%;
-  padding: 1rem 1rem 1rem ${({ $hasIcon }) => ($hasIcon ? '4rem' : '1rem')};
+  height: 4.2rem;
+  padding: 1rem 1rem 1rem ${({ $hasIcon }) => ($hasIcon ? '3.4rem' : '1rem')};
   border: 1px solid ${({ theme, $error }) => ($error ? theme.colors.danger : theme.colors.border)};
   border-radius: 16px;
   font-size: 1.4rem;

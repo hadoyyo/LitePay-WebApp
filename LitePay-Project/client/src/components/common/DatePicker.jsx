@@ -33,19 +33,23 @@ const IconWrapper = styled.span`
   font-size: 1.8rem;
   color: ${({ theme }) => theme.colors.textSecondary};
   pointer-events: none;
+  display: flex;
+  align-items: center;
   z-index: 1;
 `;
 
-const InputDisplay = styled.div`
+const InputDisplay = styled.input`
   width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
+  height: 4.2rem;
+  padding: 1rem 1rem 1rem 3.4rem;
   border: 1px solid ${({ theme, $error, $open }) =>
     $error ? theme.colors.danger : $open ? theme.colors.primary : theme.colors.border};
   border-radius: 16px;
   font-size: 1.4rem;
   color: ${({ theme }) => theme.colors.text};
   background-color: ${({ theme }) => theme.colors.cardBackground};
-  user-select: none;
+  cursor: pointer;
+  outline: none;
   transition: border-color 0.2s;
 `;
 
@@ -314,9 +318,13 @@ export default function CustomDatePicker({
       {label && <Label>{label}</Label>}
       <InputWrapper onClick={handleOpen}>
         <IconWrapper>{icon}</IconWrapper>
-        <InputDisplay $error={error} $open={open}>
-          {formatDate(currentDate)}
-        </InputDisplay>
+        <InputDisplay
+          readOnly
+          value={formatDate(currentDate)}
+          $error={error}
+          $open={open}
+          onClick={handleOpen}
+        />
       </InputWrapper>
 
       {open && (
