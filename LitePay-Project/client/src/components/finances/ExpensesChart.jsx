@@ -7,7 +7,7 @@ import { Chart as ChartJS,
   Tooltip, 
   Legend 
 } from 'chart.js';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { useState } from 'react';
 import Button from '../common/Button';
 
@@ -71,6 +71,8 @@ const PeriodButtons = styled.div`
 
 export default function ExpensesChart({ expenses }) {
   const [period, setPeriod] = useState('daily');
+  const theme = useTheme();
+  const textColor = theme?.colors?.textSecondary || '#6b7280';
 
   const getChartData = () => {
     const periodData = expenses[period] || [];
@@ -117,6 +119,7 @@ export default function ExpensesChart({ expenses }) {
           display: false
         },
         ticks: {
+          color: textColor,
           maxRotation: 45,
           minRotation: 0,
           autoSkip: true,
@@ -126,6 +129,7 @@ export default function ExpensesChart({ expenses }) {
       y: {
         beginAtZero: true,
         ticks: {
+          color: textColor,
           callback: (value) => `${value} PLN`
         }
       }
