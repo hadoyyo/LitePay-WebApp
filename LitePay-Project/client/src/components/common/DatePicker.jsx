@@ -25,6 +25,7 @@ const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  touch-action: manipulation;
 `;
 
 const IconWrapper = styled.span`
@@ -38,10 +39,12 @@ const IconWrapper = styled.span`
   z-index: 1;
 `;
 
-const InputDisplay = styled.input`
+const InputDisplay = styled.div`
   width: 100%;
   height: 4.2rem;
-  padding: 1rem 1rem 1rem 3.4rem;
+  padding: 0 1rem 0 3.4rem;
+  display: flex;
+  align-items: center;
   border: 1px solid ${({ theme, $error, $open }) =>
     $error ? theme.colors.danger : $open ? theme.colors.primary : theme.colors.border};
   border-radius: 16px;
@@ -49,7 +52,8 @@ const InputDisplay = styled.input`
   color: ${({ theme }) => theme.colors.text};
   background-color: ${({ theme }) => theme.colors.cardBackground};
   cursor: pointer;
-  outline: none;
+  user-select: none;
+  touch-action: manipulation;
   transition: border-color 0.2s;
 `;
 
@@ -257,6 +261,18 @@ export default function CustomDatePicker({
     }
   }, [selected]);
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [open]);
+
   const today = new Date();
   const cells = getCalendarDays(viewYear, viewMonth);
 
@@ -307,7 +323,13 @@ export default function CustomDatePicker({
     setOpen(false);
   };
 
-  const handleOpen = () => {
+  const handleOpen = (e) => {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
+    if (document.activeElement && typeof document.activeElement.blur === 'function') {
+      document.activeElement.blur();
+    }
     setViewYear(currentDate.getFullYear());
     setViewMonth(currentDate.getMonth());
     setOpen(true);
@@ -319,12 +341,11 @@ export default function CustomDatePicker({
       <InputWrapper onClick={handleOpen}>
         <IconWrapper>{icon}</IconWrapper>
         <InputDisplay
-          readOnly
-          value={formatDate(currentDate)}
           $error={error}
           $open={open}
-          onClick={handleOpen}
-        />
+        >
+          {formatDate(currentDate)}
+        </InputDisplay>
       </InputWrapper>
 
       {open && (
