@@ -12,13 +12,23 @@ const ErrorContainer = styled.div`
   color: ${({ theme }) => theme.colors.danger};
 `;
 
-const ErrorIcon = styled.span`
+const ErrorIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 1rem;
   font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+
+  svg {
+    display: block;
+  }
 `;
 
 const ErrorText = styled.p`
   margin: 0;
+  line-height: 1.4;
 `;
 
 export default function ErrorMessage({ message }) {
