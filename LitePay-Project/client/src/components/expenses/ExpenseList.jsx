@@ -70,15 +70,19 @@ const ExpenseMeta = styled.div`
 
 const ExpenseDate = styled.span``;
 
-const Separator = styled.span`
+const Separator = styled.span``;
+
+const ExpensePerson = styled.span`
   @media (max-width: 576px) {
     display: none;
   }
 `;
 
-const ExpensePerson = styled.span`
+const ExpensePersonMobile = styled.span`
+  display: none;
+
   @media (max-width: 576px) {
-    display: none;
+    display: inline;
   }
 `;
 
@@ -112,6 +116,9 @@ export default function ExpenseList({ expenses, onDelete, groupId }) {
                 <ExpensePerson>
                   {expense.paidBy.firstName} {expense.paidBy.lastName}
                 </ExpensePerson>
+                <ExpensePersonMobile>
+                  {expense.paidBy.firstName}
+                </ExpensePersonMobile>
               </ExpenseMeta>
             </ExpenseDetails>
           </ExpenseInfo>
