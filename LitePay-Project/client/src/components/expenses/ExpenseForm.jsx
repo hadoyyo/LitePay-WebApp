@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Formik, Form, useFormikContext } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import { FiDollarSign, FiUser, FiTag, FiCheck, FiX } from 'react-icons/fi';
+import { FiDollarSign, FiUser, FiTag, FiCheck, FiX, FiType } from 'react-icons/fi';
 import axios from 'axios';
 import Button from '../common/Button';
 import TextInput from '../common/TextInput';
@@ -508,7 +508,7 @@ export default function ExpenseForm({
               name="title"
               label="Tytuł"
               placeholder="Nazwa wydatku"
-              icon={<FiDollarSign />}
+              icon={<FiType />}
               error={touched.title && errors.title}
               onBlur={handleBlur}
               onChange={handleChange}
