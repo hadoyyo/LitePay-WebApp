@@ -1,6 +1,6 @@
 import { useAuth } from '../../contexts/AuthContext';
 import styled from 'styled-components';
-import { FiDollarSign, FiUser, FiPieChart } from 'react-icons/fi';
+import { FiDollarSign, FiUser, FiPieChart, FiArrowUp, FiArrowDown } from 'react-icons/fi';
 
 const SummaryContainer = styled.div`
   display: grid;
@@ -195,7 +195,7 @@ export default function DebtSummary({ expenses, group }) {
 
       <div style={{ marginTop: '1.5rem' }}>
         <SummaryTitle>
-          <FiUser /> Twoje długi
+          <FiArrowUp style={{ color: '#ef4444' }} /> Twoje długi
         </SummaryTitle>
         {yourNetDebts.length > 0 ? (
           yourNetDebts.map((debt, index) => (
@@ -231,7 +231,7 @@ export default function DebtSummary({ expenses, group }) {
 
       <div style={{ marginTop: '1.5rem' }}>
         <SummaryTitle>
-          <FiUser /> Twoje należności
+          <FiArrowDown style={{ color: '#10b981' }} /> Twoje należności
         </SummaryTitle>
         {yourNetCredits.length > 0 ? (
           yourNetCredits.map((credit, index) => (

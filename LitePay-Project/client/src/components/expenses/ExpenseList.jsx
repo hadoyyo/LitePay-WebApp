@@ -71,7 +71,12 @@ const ExpenseMeta = styled.div`
 
 const ExpenseDate = styled.span``;
 
-const Separator = styled.span``;
+const Separator = styled.span`
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  transform: translateY(-0.1rem);
+`;
 
 const ExpensePerson = styled.span`
   @media (max-width: 576px) {
