@@ -63,7 +63,8 @@ const ExpenseTitle = styled.p`
 
 const ExpenseMeta = styled.div`
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.2rem;
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
