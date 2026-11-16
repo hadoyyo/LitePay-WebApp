@@ -63,7 +63,7 @@ const features = [
     title: 'Potrzebujesz pomocy?',
     description: 'Zajrzyj do zakładki "Pomoc" w menu, aby uzyskać więcej informacji',
     position: { 
-      top: '168px', 
+      top: '160px', 
       right: '-10px' 
     },
     size: '62px'
