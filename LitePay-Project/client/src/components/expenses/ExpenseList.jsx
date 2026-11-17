@@ -36,6 +36,7 @@ const ExpenseInfo = styled.div`
   align-items: center;
   gap: 1.5rem;
   flex: 1;
+  min-width: 0;
 `;
 
 const ExpenseIcon = styled.div`
@@ -49,10 +50,12 @@ const ExpenseIcon = styled.div`
   font-size: 1.8rem;
   line-height: 1;
   padding: 0;
+  flex-shrink: 0;
 `;
 
 const ExpenseDetails = styled.div`
   flex: 1;
+  min-width: 0;
 `;
 
 const ExpenseTitle = styled.p`
@@ -67,18 +70,32 @@ const ExpenseMeta = styled.div`
   gap: 0.5rem;
   font-size: 1.2rem;
   color: ${({ theme }) => theme.colors.textSecondary};
+
+  @media (max-width: 450px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
 `;
 
-const ExpenseDate = styled.span``;
+const ExpenseDate = styled.span`
+  white-space: nowrap;
+`;
 
 const Separator = styled.span`
   display: inline-flex;
   align-items: center;
   line-height: 1;
   transform: translateY(-0.1rem);
+
+  @media (max-width: 450px) {
+    display: none;
+  }
 `;
 
 const ExpensePerson = styled.span`
+  white-space: nowrap;
+
   @media (max-width: 576px) {
     display: none;
   }
@@ -86,6 +103,7 @@ const ExpensePerson = styled.span`
 
 const ExpensePersonMobile = styled.span`
   display: none;
+  white-space: nowrap;
 
   @media (max-width: 576px) {
     display: inline;
@@ -96,6 +114,8 @@ const ExpenseAmount = styled.div`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.primary};
   margin-left: 1rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 `;
 
 const getCategoryEmoji = (categoryValue) => {
